@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Professor</title>
+    <style>
+        .notificacao {
+            color: #ff0000;
+            font-weight: bold;
+            display: none;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 250px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="iconeNotificacao" class="notificacao">
+        <i class="fas fa-bell"></i> Novo aluno matriculado
+    </div>
+
+    <h2>Minha Sala de Aula</h2>
+    <div class="card-container">
+        <!-- Os cards dos alunos serão adicionados dinamicamente -->
+    </div>
+
+    <script>
+        function exibirAluno() {
+            const alunoJSON = localStorage.getItem("novoAluno");
+
+            if (alunoJSON) {
+                const aluno = JSON.parse(alunoJSON);
+
+                document.getElementById("iconeNotificacao").style.display = "block";
+
+                const cardContainer = document.querySelector(".card-container");
+                const novoCard = document.createElement("div");
+                novoCard.classList.add("card");
+                novoCard.innerHTML = `
+                    <h4>Aluno: ${aluno.nome}</h4>
+                    <p>Idade: ${aluno.idade} anos</p>
+                    <p>Descrição: ${aluno.descricao}</p>
+                    <p>Turma: ${aluno.turma}</p>
+                    <p>Alergias/Problemas: ${aluno.alergias || "Nenhum"}</p>
+                `;
+
+                cardContainer.appendChild(novoCard);
+
+                localStorage.removeItem("novoAluno");
+            }
+        }
+
+        window.onload = exibirAluno;
+    </script>
+</body>
+</html>

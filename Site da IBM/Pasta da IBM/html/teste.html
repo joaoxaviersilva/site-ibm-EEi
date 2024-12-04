@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrícula de Aluno</title>
+    <style>
+        .form-matricula {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-matricula label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .form-matricula input, .form-matricula select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .form-matricula button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <section class="form-matricula">
+        <h2>Formulário de Matrícula</h2>
+        <form id="matriculaForm" onsubmit="enviarMatricula(event)">
+            <label for="nomeAluno">Nome do Aluno:</label>
+            <input type="text" id="nomeAluno" required>
+
+            <label for="idadeAluno">Idade do Aluno:</label>
+            <input type="number" id="idadeAluno" required>
+
+            <label for="descricaoAluno">Descrição:</label>
+            <input type="text" id="descricaoAluno" required>
+
+            <label for="turmaAluno">Turma:</label>
+            <select id="turmaAluno" required>
+                <option value="Berçário - A">Berçário - A</option>
+                <option value="Berçário - B">Berçário - B</option>
+            </select>
+
+            <label for="alergiasAluno">Alergias ou Problemas de Saúde:</label>
+            <input type="text" id="alergiasAluno" placeholder="Ex: Alergia a amendoim">
+
+            <button type="submit">Enviar Matrícula</button>
+        </form>
+    </section>
+
+    <script>
+        function enviarMatricula(event) {
+            event.preventDefault();
+
+            const aluno = {
+                nome: document.getElementById("nomeAluno").value,
+                idade: document.getElementById("idadeAluno").value,
+                descricao: document.getElementById("descricaoAluno").value,
+                turma: document.getElementById("turmaAluno").value,
+                alergias: document.getElementById("alergiasAluno").value
+            };
+
+            localStorage.setItem("novoAluno", JSON.stringify(aluno));
+            alert("Matrícula concluída com sucesso!");
+
+            document.getElementById("matriculaForm").reset();
+        }
+    </script>
+</body>
+</html>
